@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -45,15 +47,36 @@ public class ClassicMusic extends AppCompatActivity {
        // ListView listView = (ListView) findViewById(R.id.listview_artist);
         ListView listView = (ListView) findViewById(R.id.listview_artist);
 
-        //--------- begin set clickable item ------
+        /*--------- begin set clickable item ------
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+              //  Artist inName = (Artist) parent.getItemAtPosition(position);
+
                 Intent artistIntent = new Intent(ClassicMusic.this, ClassicArtist.class);
+                artistIntent.putExtra("IntentArtistName", (CharSequence) inName);
                 startActivity(artistIntent);
+
+                Log.d("ClassicMusic", "IntentArtistName" + artistIntent);
             }
         });
-        //--------- end set clickable item ------
+        //--------- end set clickable item ------ */
+
+         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                String inName = ((TextView) view.findViewById(R.id.artist_name)).getText().toString();
+
+                Intent artistIntent = new Intent(ClassicMusic.this, ClassicArtist.class);
+                artistIntent.putExtra("IntentArtistName", inName);
+                startActivity(artistIntent);
+
+                Log.d("ClassicMusic", "IntentArtistName" + artistIntent);
+
+            }
+        });
 
         listView.setAdapter(artistAdapter);
 
